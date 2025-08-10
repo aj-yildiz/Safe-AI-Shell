@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Copy, Check, AlertTriangle, Info, Shield } from 'lucide-react';
 import Prism from 'prismjs';
 import type { GenerateResponse } from '../types';
