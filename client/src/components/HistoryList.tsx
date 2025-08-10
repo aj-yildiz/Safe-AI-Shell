@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { Clock, Trash2, Shell } from 'lucide-react';
 import { StorageService } from '../lib/storage';
 import type { HistoryItem } from '../types';

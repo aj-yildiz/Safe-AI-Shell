@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { Send, Loader2 } from 'lucide-react';
 import { generateCommand } from '../lib/api';
 import { parseIntent } from '../lib/intent';
