@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Folder, History, Moon, Sun } from 'lucide-react';
 import PromptForm from './components/PromptForm';
 import OutputCard from './components/OutputCard';

@@ -1,8 +1,7 @@
-import React from 'react';
 import { Download, File, Folder, Search } from 'lucide-react';
 import { formatFileSize } from '../lib/fs';
 import { exportToCSV } from '../lib/export';
-import type { FileResult, ExtensionCount, Intent } from '../types';
+import type { FileResult, ExtensionCount, Intent, LargeFilesParams } from '../types';
 
 interface ResultsTableProps {
   results: FileResult[] | ExtensionCount[];
@@ -49,8 +48,10 @@ export default function ResultsTable({ results, intent, folderName }: ResultsTab
     if (!intent) return 'Results';
     
     switch (intent.type) {
-      case 'LARGE_FILES':
-        return `Large Files (>${intent.params.threshold}MB)`;
+      case 'LARGE_FILES': {
+        const params = intent.params as LargeFilesParams;
+        return `Large Files (>${params.threshold}MB)`;
+      }
       case 'COUNT_BY_EXT':
         return 'Files by Extension';
       case 'TEXT_SEARCH':

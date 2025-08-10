@@ -41,7 +41,8 @@ async function walkDirectory(
       
       if (handle.kind === 'file') {
         try {
-          const file = await handle.getFile();
+          const fileHandle = handle as FileSystemFileHandle;
+          const file = await fileHandle.getFile();
           const result: FileResult = {
             path: currentPath,
             name,
@@ -56,8 +57,9 @@ async function walkDirectory(
         }
       } else if (handle.kind === 'directory') {
         try {
+          const dirHandle = handle as FileSystemDirectoryHandle;
           const subResults = await walkDirectory(
-            handle,
+            dirHandle,
             maxDepth,
             currentDepth + 1,
             currentPath
