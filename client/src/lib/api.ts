@@ -1,6 +1,6 @@
 import type { GenerateResponse } from '../types';
 
-const API_BASE = 'https://safe-ai-shell-production.up.railway.app';
+const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8787';
 
 export class ApiError extends Error {
   constructor(
@@ -45,7 +45,7 @@ export async function generateCommand(
     // Network or other errors
     if (error instanceof TypeError && error.message.includes('fetch')) {
       throw new ApiError(
-        'Unable to connect to server. Make sure the server is running on port 8787.',
+        `Unable to connect to server at ${API_BASE}. Check network connection.`,
         0,
         'NETWORK_ERROR'
       );

@@ -19,11 +19,15 @@ async function startServer(): Promise<void> {
     }));
 
     // CORS configuration
+    const allowedOrigins = config.nodeEnv === 'development' 
+      ? ['http://localhost:5173'] 
+      : (process.env.ALLOWED_ORIGINS || process.env.CORS_ORIGIN || 'https://folder-insights-ai.vercel.app')
+          .split(',')
+          .map(origin => origin.trim());
+
     app.use(cors({
-      origin: config.nodeEnv === 'development' 
-        ? 'http://localhost:5173' 
-        : process.env.CORS_ORIGIN || 'https://folder-insights-ai.vercel.app',
-      methods: ['GET', 'POST'],
+      origin: allowedOrigins,
+      methods: ['GET', 'POST', 'OPTIONS'],
       allowedHeaders: ['Content-Type', 'Authorization'],
       credentials: false,
     }));
