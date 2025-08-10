@@ -155,7 +155,7 @@ function App() {
                 <div>
                   <h3 className="font-medium text-gray-300 mb-2">Example goals:</h3>
                   <ul className="space-y-1 text-xs">
-                    <li>• "find files >50MB depth 2"</li>
+                    <li>• "find files {'>'} 50MB depth 2"</li>
                     <li>• "count files by extension"</li>
                     <li>• "search for TODO in .js files"</li>
                   </ul>
