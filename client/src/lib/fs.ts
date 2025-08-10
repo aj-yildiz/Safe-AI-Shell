@@ -36,7 +36,16 @@ async function walkDirectory(
   }
 
   try {
-    for await (const [name, handle] of dirHandle.entries()) {
+    const iter: AsyncIterable<any> =
+      (dirHandle as any).entries?.() ??
+      (dirHandle as any).values?.() ??
+      (async function* () {})();
+
+    for await (const item of iter) {
+      const [name, handle] = Array.isArray(item)
+        ? item
+        : [ (item as any)?.name ?? '', item as FileSystemHandle ];
+      
       const currentPath = basePath ? `${basePath}/${name}` : name;
       
       if (handle.kind === 'file') {

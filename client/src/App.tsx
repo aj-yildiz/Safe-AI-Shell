@@ -61,11 +61,14 @@ function App() {
     }
 
     try {
-      const dirHandle = await window.showDirectoryPicker();
+      const dirHandle = await (window as any).showDirectoryPicker?.();
+      if (!dirHandle) {
+        throw new Error("Your browser doesn't support selecting folders.");
+      }
       setState(prev => ({
         ...prev,
-        selectedFolder: dirHandle,
-        folderName: dirHandle.name,
+        selectedFolder: dirHandle as any,
+        folderName: (dirHandle as any).name,
         error: null,
       }));
     } catch (error) {

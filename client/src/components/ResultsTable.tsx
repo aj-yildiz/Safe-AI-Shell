@@ -49,8 +49,11 @@ export default function ResultsTable({ results, intent, folderName }: ResultsTab
     
     switch (intent.type) {
       case 'LARGE_FILES': {
-        const params = intent.params as LargeFilesParams;
-        return `Large Files (>${params.threshold}MB)`;
+        if (intent.params && 'threshold' in intent.params) {
+          const threshold = (intent.params as LargeFilesParams).threshold;
+          return `Large Files (>${threshold}MB)`;
+        }
+        return 'Large Files';
       }
       case 'COUNT_BY_EXT':
         return 'Files by Extension';
