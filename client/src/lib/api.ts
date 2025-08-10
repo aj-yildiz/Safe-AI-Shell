@@ -1,6 +1,11 @@
 import type { GenerateResponse } from '../types';
 
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8787';
+const API_BASE = import.meta.env.VITE_API_URL as string;
+
+// Guard so builds fail loudly if VITE_API_URL is not set
+if (!API_BASE) {
+  throw new Error('VITE_API_URL environment variable is required but not set');
+}
 
 export class ApiError extends Error {
   constructor(
@@ -45,7 +50,7 @@ export async function generateCommand(
     // Network or other errors
     if (error instanceof TypeError && error.message.includes('fetch')) {
       throw new ApiError(
-        `Unable to connect to server at ${API_BASE}. Check network connection.`,
+        `Unable to connect to server at ${API_BASE}. Check that the backend is running and CORS is configured.`,
         0,
         'NETWORK_ERROR'
       );
