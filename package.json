@@ -1,0 +1,28 @@
+{
+  "name": "folder-insights-ai",
+  "version": "1.0.0",
+  "description": "Pick a folder → ask a goal → get an AI-suggested command + real local results. No uploads.",
+  "private": true,
+  "scripts": {
+    "install:all": "npm install && cd client && npm install && cd ../server && npm install",
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:client": "cd client && npm run dev",
+    "dev:server": "cd server && npm run dev",
+    "build": "cd client && npm run build && cd ../server && npm run build",
+    "test": "cd server && npm test",
+    "lint": "cd client && npm run lint && cd ../server && npm run lint"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "keywords": [
+    "ai",
+    "folder-analysis",
+    "file-system",
+    "openai",
+    "react",
+    "typescript"
+  ],
+  "author": "",
+  "license": "MIT"
+}
