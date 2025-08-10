@@ -6,15 +6,16 @@ import type { AIProvider } from '../types';
 export function createGenerateRouter(aiProvider: AIProvider): Router {
   const router = Router();
 
-  router.post('/generate', async (req: Request, res: Response) => {
+  router.post('/generate', async (req: Request, res: Response): Promise<void> => {
     try {
       // Validate request body
       const validationResult = GenerateRequestSchema.safeParse(req.body);
       if (!validationResult.success) {
-        return res.status(400).json({
+        res.status(400).json({
           error: 'Invalid request',
           details: validationResult.error.errors,
         });
+        return;
       }
 
       const { goal, shell } = validationResult.data;
@@ -25,10 +26,11 @@ export function createGenerateRouter(aiProvider: AIProvider): Router {
         aiResponse = await aiProvider.generateCommand(goal, shell);
       } catch (aiError) {
         console.error('AI Provider Error:', aiError);
-        return res.status(503).json({
+        res.status(503).json({
           error: 'AI service temporarily unavailable',
           code: 'AI_SERVICE_ERROR',
         });
+        return;
       }
 
       // Perform risk assessment on the generated command
@@ -56,10 +58,11 @@ export function createGenerateRouter(aiProvider: AIProvider): Router {
       const responseValidation = GenerateResponseSchema.safeParse(response);
       if (!responseValidation.success) {
         console.error('Response validation failed:', responseValidation.error);
-        return res.status(500).json({
+        res.status(500).json({
           error: 'Invalid response format',
           code: 'RESPONSE_VALIDATION_ERROR',
         });
+        return;
       }
 
       // Log for monitoring (in production, use proper logging)
@@ -83,5 +86,6 @@ function getRiskPriority(risk: 'low' | 'medium' | 'high'): number {
     case 'low': return 1;
     case 'medium': return 2;
     case 'high': return 3;
+    default: return 1;
   }
 }
