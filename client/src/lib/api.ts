@@ -1,6 +1,6 @@
 import type { GenerateResponse } from '../types';
 
-const API_BASE = 'http://localhost:8787';
+const API_BASE = 'https://safe-ai-shell.up.railway.app';
 
 export class ApiError extends Error {
   constructor(

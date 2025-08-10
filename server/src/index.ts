@@ -20,9 +20,12 @@ async function startServer(): Promise<void> {
 
     // CORS configuration
     app.use(cors({
-      origin: config.nodeEnv === 'development' ? 'http://localhost:5173' : false,
+      origin: config.nodeEnv === 'development' 
+        ? 'http://localhost:5173' 
+        : process.env.CORS_ORIGIN || 'https://folder-insights-ai.vercel.app',
       methods: ['GET', 'POST'],
       allowedHeaders: ['Content-Type', 'Authorization'],
+      credentials: false,
     }));
 
     // Body parsing
