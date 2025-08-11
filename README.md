@@ -37,11 +37,9 @@ Choose a folder, describe your goal, and get:
 git clone <repo>
 cd folder-insights-ai
 npm run install:all
-# Add your OPENAI_API_KEY to server/.env
+# Add your OPENAI_API_KEY to server/.env :)) 
 npm run dev
-```
-
-Open **[http://localhost:5173](http://localhost:5173)** in Chrome/Edge.
+``
 
 ---
 
